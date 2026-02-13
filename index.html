@@ -11,19 +11,33 @@
   <link rel="stylesheet" href="src/css/main.css" />
   <link rel="stylesheet" href="src/css/home.css" />
 
+  <!-- ~ Preload Assets -->
+  <link rel="preload" as="image"
+    href="static/portfolio/home/2022_Cedric_Kouamé_Gifted_Mold_Archive_GIDA_Journal_Vol1.jpg">
+
 </head>
 
 <body>
 
   <!-- ~ HTML -->
-  <div id="page">
+  <div id="page" style="display: none;">
+
+    <div id="header"></div>
 
     <div id="content">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">Information</a></li>
-        <li><a href="works.html">Works</a></li>
-      </ul>
+
+      <div id="gallery">
+
+        <div id="frame">
+          <img id="image"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            alt="placeholder">
+        </div>
+
+        <div id="credit">Placeholder</div>
+
+      </div>
+
     </div>
 
   </div>

@@ -3,6 +3,7 @@
 // < =======================================================
 
 import * as tools from "./tools.js";
+import * as alpha from "./alpha.js";
 
 // < =======================================================
 // < Declarations
@@ -23,6 +24,9 @@ const queries = {
     page: document.getElementById('page'),
 
     /** @type {HTMLDivElement} */
+    header: document.getElementById('header'),
+
+    /** @type {HTMLDivElement} */
     content: document.getElementById('content')
 
 }
@@ -40,6 +44,13 @@ const queries = {
 // ? Run callback when all resources have loaded
 window.addEventListener('load', async () => {
 
+    // Test log
     console.log('about.js has loaded');
+
+    // Load header
+    alpha.loadHeader();
+
+    // Show the page element
+    queries.page.style.display = '';
 
 });
