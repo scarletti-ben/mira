@@ -38,7 +38,7 @@ body {
   position: relative;
   box-sizing: border-box;
   /* color: var(--primary-900); */
-  background: var(--site-900);
+  background: var(--site-100);
   scrollbar-color: var(--scrollbar);
   font-family: var(--font-family);
   font-size: var(--font-size);

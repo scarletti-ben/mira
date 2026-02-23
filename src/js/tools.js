@@ -1470,6 +1470,24 @@ class Cycle {
 // const value = cycle.next()
 // console.log(value)
 
+/**
+ * Scroll to the bottom of an element
+ * 
+ * @param {HTMLElement} element - The element to scroll
+ */
+function scrollToBottom(element) {
+    element.scrollTo(0, element.scrollHeight);
+}
+
+/**
+ * Scroll to the top of an element
+ * 
+ * @param {HTMLElement} element - The element to scroll
+ */
+function scrollToTop(element) {
+    element.scrollTop = 0;
+}
+
 // < ======================================================
 // < Submodule: encryptor
 // < ======================================================
@@ -1692,5 +1710,7 @@ export {
     toTitleCase,
     toTitleCase_01,
     toTitleCase_02,
-    encryptor
+    encryptor,
+    scrollToBottom,
+    scrollToTop
 }

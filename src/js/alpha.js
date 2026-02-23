@@ -22,6 +22,25 @@ export async function fetchJSON(url) {
 }
 
 /** 
+ * Fetch text from a URL
+ * 
+ * @param {string} url - The URL with a `.text` response
+ * @returns {Promise<string>} Promise of the text
+ * @throws For an unsuccessful fetch
+ */
+export async function fetchText(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error: status ${response.status}`);
+        }
+        return await response.text();
+    } catch (error) {
+        throw new Error('Fetch error', { cause: error });
+    }
+}
+
+/** 
  * 
  */
 export function loadHeader() {

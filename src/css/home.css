@@ -20,11 +20,13 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  cursor: ew-resize;
 }
 
 #frame img {
   max-width: 100%;
   max-height: 100%;
+  user-select: none;
   object-fit: contain;
 }
 

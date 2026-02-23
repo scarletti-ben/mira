@@ -50,6 +50,10 @@ window.addEventListener('load', async () => {
     // Load header
     alpha.loadHeader();
 
+    // Load text
+    const text = await alpha.fetchText('static/text/about.txt');
+    document.getElementById('text').textContent = text;
+
     // Show the page element
     queries.page.style.display = '';
 
