@@ -9,14 +9,6 @@ import * as alpha from "./alpha.js";
 // < Declarations
 // < =======================================================
 
-/** 
- * Lookup object of image paths
- */
-const paths = {
-    "test": "static/portfolio/home/2022_Cedric_Kouamé_Gifted_Mold_Archive_GIDA_Journal_Vol1.jpg",
-    "test2": "static/portfolio/home/2021_Asian_Underground_MOYC_01.png"
-}
-
 const images = [
     {
         "filename": "2022_Cedric_Kouamé_Gifted_Mold_Archive_GIDA_Journal_Vol1.jpg",
@@ -37,10 +29,11 @@ const images = [
     {
         "filename": "2024_Sara_Benabdallah_143_African_Art_Fair_Marrakech_combined.jpeg",
         "caption": "Creative Director, Sara Benabdallah for 1-54 African Art Fair, 2024"
-    },
-    // -------------------------------
-
+    }
 ]
+
+let currentIndex = 0;
+let imageEls = [];
 
 // < =======================================================
 // < Queries
@@ -67,18 +60,32 @@ const queries = {
 // < =======================================================
 
 /**
- * Update the gallery image and credit text
- * @param {string} key - Image key for `paths` lookup
- * @param {string} text - Credit text to display below the image
+ * Build all image elements upfront and append them to the frame,
+ * showing only the first one. Instant switching thereafter.
+ * @param {HTMLElement} frame - The container element to append images into
  */
-export function updateGallery(path, text) {
+function buildGallery(frame) {
+    imageEls = images.map(({ filename }, i) => {
+        const img = document.createElement('img');
+        img.id = i === 0 ? 'image' : `image-${i}`;
+        img.src = `static/portfolio/home/` + filename;
+        img.style.display = i === 0 ? '' : 'none';
+        frame.appendChild(img);
+        return img;
+    });
+}
 
-    const image = document.getElementById('image');
-    image.src = `static/portfolio/home/` + path;
+/**
+ * Switch to the given index, updating the visible image and credit text
+ * @param {number} index - Index into the images array
+ */
+function showImage(index) {
+    imageEls[currentIndex].style.display = 'none';
+    currentIndex = index;
+    imageEls[currentIndex].style.display = '';
 
     const credit = document.getElementById('credit');
-    credit.textContent = text;
-
+    credit.textContent = images[currentIndex].caption;
 }
 
 // ~ =======================================================
@@ -94,23 +101,21 @@ window.addEventListener('load', async () => {
     // Load header
     alpha.loadHeader();
 
-    // Update gallery image
-    let currentIndex = 0;
-    const maxIndex = images.length;
+    // Build gallery
+    const frame = document.getElementById('frame');
+    buildGallery(frame);
 
-    const image = images[0];
-    updateGallery(image.filename, image.caption);
+    // Set initial caption
+    document.getElementById('credit').textContent = images[0].caption;
 
-    document.getElementById('frame').addEventListener('click', (e) => {
+    // Click left half = previous, right half = next
+    frame.addEventListener('click', (e) => {
         const { left, width } = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - left;
-        if (x < width / 2) {
-            currentIndex = (currentIndex - 1 + maxIndex) % maxIndex;
-        } else {
-            currentIndex = (currentIndex + 1) % maxIndex;
-        }
-        const image = images[currentIndex];
-        updateGallery(image.filename, image.caption);
+        const nextIndex = x < width / 2
+            ? (currentIndex - 1 + images.length) % images.length
+            : (currentIndex + 1) % images.length;
+        showImage(nextIndex);
     });
 
     // Show the page element
